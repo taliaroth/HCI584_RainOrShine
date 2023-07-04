@@ -41,6 +41,11 @@
         </tbody>
     </table>
     <div>
+        <!-- create hourly forecast button using forms to redirect to home (flask "/hourly_forecast" route) -->
+             <form action="{{ url_for('hourly_forecast') }}" method="post">
+            <input type="hidden" name="city" value="{{ city }}">
+            <button type="submit">See Hourly Forecast</button>
+        </form>
          <!-- create home button using forms to redirect to home (flask "/" route) -->
         <form action="/" method="get">
             <button type="submit">Home</button>

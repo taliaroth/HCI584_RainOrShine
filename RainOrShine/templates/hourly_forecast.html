@@ -3,8 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <title>Hourly Weather Forecast: {{ city }}</title>
+
+      <style>
+            /* image was too big and not formatted TODO: ADD MORE STYLING */
+        .weatherpng{
+            width: 50px;
+            display: block;
+            margin: 0 auto;
+        }
+  </style>
 </head>
 <body>
-
+    <h1>Hourly Weather Forecast for {{ city }}</h1>
+    <table class="data">
+        <thead>
+            <tr>
+                <th>Time</th>
+                <th>Temperature (F)</th>
+                <th>Precipitation</th>
+                <th>Weather Image</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- use flasks Jinja2  -->
+             <!-- create for loop -->
+            {% for r in data %}
+            <tr>
+                 <!-- get values from list -->
+                {% for v in r[:3] %}
+                 <!-- show value in table -->
+                <td>{{ v }}</td>
+                {% endfor %}
+                 <!-- get image from file using .png file name from row - this reads the image using src-->
+                <td><img  src="{{ url_for('static', filename=r[3]) }}" alt="Weather.png" class="weatherpng"></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </body>
 </html>
