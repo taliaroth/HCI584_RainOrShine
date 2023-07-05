@@ -115,7 +115,7 @@ def hourly_forecast():
             forecast_time = datetime.strptime(json_data['hourly']['time'][i], '%Y-%m-%dT%H:%M')
 
             if forecast_time >= current_time:
-                if json_data['hourly']['precipitation_probability_mean'][i] > 0:
+                if json_data['hourly']['precipitation'][i] > 0:
                     image = 'rain.png'
                 else:
                     image = 'sun.png'
