@@ -3,15 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <title>Hourly Weather Forecast: {{ city }}</title>
-
-      <style>
-            /* image was too big and not formatted TODO: ADD MORE STYLING */
+    <style>
+        /* image was too big and not formatted TODO: ADD MORE STYLING */
         .weatherpng{
             width: 50px;
             display: block;
             margin: 0 auto;
         }
-  </style>
+
+        body {
+            font-family: Montserrat, sans-serif;
+            background-color: #EAF2EF;
+            padding: 20px;
+            color: #521945;
+        }
+
+        h1 {
+            text-align: center;
+            padding: 20px;
+            color: #521945;
+        }
+
+        .data {
+            border-collapse: collapse;
+            width: 100%;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+            margin-bottom: 20px;
+        }
+
+        .data th, .data td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .data th {
+            background-color: #361F27;
+            color: #EAF2EF;
+        }
+
+        .data tr:hover {
+            background-color: #f4f4f4;
+        }
+
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: row;
+            margin-top: 20px;
+        }
+
+        .primary-button {
+            background-color: #912F56;
+            color: #EAF2EF;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            font-weight: 600;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 5px;
+            border: none;
+        }
+
+        .secondary-button {
+            background-color: none;
+            color: #912F56;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            font-weight: 600;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 5px;
+            border: none;
+        }
+    </style>
 </head>
 <body>
     <h1>Hourly Weather Forecast for {{ city }}</h1>
@@ -26,19 +99,28 @@
         </thead>
         <tbody>
             <!-- use flasks Jinja2  -->
-             <!-- create for loop -->
+            <!-- create for loop -->
             {% for r in data %}
             <tr>
-                 <!-- get values from list -->
+                <!-- get values from list -->
                 {% for v in r[:3] %}
-                 <!-- show value in table -->
+                <!-- show value in table -->
                 <td>{{ v }}</td>
                 {% endfor %}
-                 <!-- get image from file using .png file name from row - this reads the image using src-->
+                <!-- get image from file using .png file name from row - this reads the image using src-->
                 <td><img  src="{{ url_for('static', filename=r[3]) }}" alt="Weather.png" class="weatherpng"></td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
+    <div class="btn-group">
+        <form action="{{ url_for('forecast') }}" method="post">
+            <input type="hidden" name="city" value="{{ city }}">
+            <button class="primary-button" type="submit">Daily Forecast</button >
+        </form>
+        <form action="/" method="get">
+            <button class="secondary-button" type="submit">Home</button >
+        </form>
+    </div>
 </body>
 </html>

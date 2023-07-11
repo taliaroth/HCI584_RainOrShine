@@ -4,18 +4,100 @@
     <meta charset="UTF-8">
     <title>Daily Weather Forecast: {{ city }}</title>
   <style>
-            /* image was too big and not formatted TODO: ADD MORE STYLING */
+        /* image was too big and not formatted TODO: ADD MORE STYLING */
+        body {
+            font-family: Montserrat, sans-serif;
+            background-color: #EAF2EF;
+            padding: 20px;
+            color: #521945;
+        }
+
+        /* styles header, centers adds padding and color set to grey */
+        h1 {
+            text-align: left;
+            padding: 20px;
+            color: #521945;
+        }
+
+        /* table class, adds margins and width formatting */
+        .data {
+            border-collapse: collapse;
+            width: 100%;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+            margin-bottom: 20px;
+        }
+
+        /* add formatting to cells */
+        .data th, .data td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        /* header row  */
+        .data th {
+            background-color: #361F27;
+            color: #EAF2EF;
+        }
+
+        .data tr:hover {
+            background-color: #f4f4f4;
+        }
+
+         /* image was too big and not formatted TODO: ADD MORE STYLING */
         .weatherpng{
             width: 50px;
             display: block;
             margin: 0 auto;
         }
+
+        /* make buttons Pink and format it, add padding, display inline  */
+        .primary-button {
+            background-color: #912F56;
+            color: #EAF2EF;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            font-weight: 600;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 5px;
+            border: none;
+        }
+
+        .secondary-button {
+            background-color: none;
+            color: #912F56;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            font-weight: 600;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 5px;
+            border: none;
+        }
+
+          /* center buttons and align, create formatting, add margins*/
+        .btn-group {
+            display: flex;
+            justify-content: right;
+            align-items: center;
+            flex-direction: row;
+            margin-top: 20px;
+        }
   </style>
 </head>
 <body>
     <h1>Daily Weather Forecast for {{ city }}</h1>
-     <!-- create table -->
-    <table>
+    <!-- create table -->
+    <!-- add class to format data-->
+    <table class="data">
         <thead>
             <tr>
                 <th>Date</th>
@@ -40,15 +122,16 @@
             {% endfor %}
         </tbody>
     </table>
-    <div>
+    <!-- add class to format buttons -->
+    <div class="btn-group">
         <!-- create hourly forecast button using forms to redirect to home (flask "/hourly_forecast" route) -->
-             <form action="{{ url_for('hourly_forecast') }}" method="post">
+        <form action="{{ url_for('hourly_forecast') }}" method="post">
             <input type="hidden" name="city" value="{{ city }}">
-            <button type="submit">See Hourly Forecast</button>
+            <button class="primary-button" type="submit">See Hourly Forecast</button>
         </form>
-         <!-- create home button using forms to redirect to home (flask "/" route) -->
+        <!-- create home button using forms to redirect to home (flask "/" route) -->
         <form action="/" method="get">
-            <button type="submit">Home</button>
+            <button class="secondary-button" type="submit">Home</button>
         </form>
     </div>
 </body>
