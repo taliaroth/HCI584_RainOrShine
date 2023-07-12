@@ -68,7 +68,8 @@ def forecast():
         for i in range(len(json_data['daily']['time'])):
 
             # use precipitation to check if it's going to rain and then use image
-            if json_data['daily']['precipitation_probability_mean'][i] > 0:
+            #change to 50
+            if json_data['daily']['precipitation_probability_mean'][i] > 50:
                 image = 'rain.png'
             else:
                 image = 'sun.png'
@@ -164,7 +165,8 @@ def hourly_forecast():
             forecast_time = datetime.strptime(json_data['hourly']['time'][i], '%Y-%m-%dT%H:%M')
 
             if forecast_time >= current_time:
-                if json_data['hourly']['precipitation'][i] > 0:
+                #change to 50
+                if json_data['hourly']['precipitation'][i] > 50:
                     image = 'rain.png'
                 else:
                     image = 'sun.png'
