@@ -19,7 +19,7 @@
         }
 
         h1 {
-            text-align: center;
+            text-align: left;
             padding: 20px;
             color: #521945;
         }
@@ -49,7 +49,7 @@
 
         .btn-group {
             display: flex;
-            justify-content: center;
+            justify-content: right;
             align-items: center;
             flex-direction: row;
             margin-top: 20px;
@@ -71,7 +71,7 @@
         }
 
         .secondary-button {
-            background-color: none;
+            background-color: #EAF2EF;
             color: #912F56;
             padding: 15px 32px;
             text-align: center;
@@ -90,11 +90,12 @@
     <h1>Hourly Weather Forecast for {{ city }}</h1>
     <table class="data">
         <thead>
-            <tr>
-                <th>Time</th>
-                <th>Temperature (F)</th>
-                <th>Precipitation</th>
-                <th>Weather Image</th>
+    <tr>
+        <th>Time</th>
+        <th>Day</th>
+        <th>Temperature (F)</th>
+        <th>Precipitation</th>
+        <th>Weather Image</th>
             </tr>
         </thead>
         <tbody>
@@ -103,15 +104,16 @@
             {% for r in data %}
             <tr>
                 <!-- get values from list -->
-                {% for v in r[:3] %}
+                {% for v in r[:4] %}
                 <!-- show value in table -->
                 <td>{{ v }}</td>
                 {% endfor %}
                 <!-- get image from file using .png file name from row - this reads the image using src-->
-                <td><img  src="{{ url_for('static', filename=r[3]) }}" alt="Weather.png" class="weatherpng"></td>
+                <td><img  src="{{ url_for('static', filename=r[4]) }}" alt="Weather.png" class="weatherpng"></td>
             </tr>
             {% endfor %}
         </tbody>
+
     </table>
     <div class="btn-group">
         <form action="{{ url_for('forecast') }}" method="post">

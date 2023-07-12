@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+     <!-- import jquery to add js code for the autocomplete -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
     <meta charset="UTF-8">
     <title>Weather Forecast for Your City</title>
         <style>
@@ -55,12 +57,48 @@
         }
     </style>
 </head>
+
+
+    <script>
+$(document).ready(function(){
+    var finish = null;
+    $('#city').on('input', function() {
+        clearTimeout(finish);
+        // get user input
+        var user_inp = $(this).val();
+
+        // only check once user types in a few characters
+        if(user_inp.length >= 3) {
+
+            finish = setTimeout(function() {
+
+                // route user input to flask and autocomplete method deals with users input
+                $.get('/autocomplete_geocode', {text: user_inp})
+                .done(function(data) {
+
+                    // make sure to clear out the old stuff before updating
+                    $('#suggestions').empty();
+
+                    // iterate through suggestions and add them to the html value attribute
+                    data.forEach(function(auto) {
+                        $('#suggestions').append('<option value="' + auto.properties.name + '">');
+                    });
+                });
+            }, 150); // make sure it keeps checking quickly
+        }
+    });
+});
+
+    </script>
 <body>
     <h1>Weather Forecast</h1>
-    <form action="/forecast" method="post">
-        <label for="city">City:</label>
-        <input type="text" id="city" name="city">
-        <input type="submit" value="Get Forecast">
-    </form>
+<form action="/forecast" method="post">
+    <label for="city">City:</label>
+    <input type="text" id="city" name="city" list="suggestions">
+    <datalist id="suggestions"> <!-- suggestions will populate using jdava script -->
+    </datalist>
+    <input type="submit" value="Get Forecast">
+</form>
+
 </body>
 </html>
