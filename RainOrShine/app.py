@@ -55,11 +55,19 @@ def autocomplete():
 @app.route('/forecast', methods=['POST'])
 def forecast():
 
-    # get user text from flask form
+    # get user city from flask form
     city = request.form.get('city')
+    # get user zipcode from flask form
+    zip_code = request.form.get('zip_code')
 
-    # get cords using city name and geocoder
-    lat, long = get_cord(city)
+    if city:
+        # get lat and long using city name and geocoder
+        lat, long = get_cord(city)
+    elif zip_code:
+        # get lat and long using zipcode name and geocoder
+        lat, long = get_cord(zip_code)
+
+
     if lat and long: # if both exist keep going
         json_data = get_forecast_daily(lat, long, 10)
         data = []
@@ -92,7 +100,12 @@ def forecast():
             data.append(row)
 
         # return the html page with the data we want to pass in, and also pass in city name
-        return render_template('forecast.html', city=city, data=data)
+
+        if zip_code:
+            return render_template('forecast.html', city=str(zip_code), data=data)
+        else:
+            return render_template('forecast.html', city=city, data=data)
+
 
 
 def get_forecast_daily(lat, long, forecast_d):  # creating an api call for user's input
@@ -143,12 +156,18 @@ def get_forecast_hourly(lat, long, forecast_d=1):  # creating an api call for us
 # add next 24 hours and day,am/pm
 @app.route('/hourly_forecast', methods=['POST'])
 def hourly_forecast():
-
-    # get user input
+    # get user city from flask form
     city = request.form.get('city')
+    # get user zipcode from flask form
+    zip_code = request.form.get('zip_code')
 
-    # get lat and long
-    lat, long = get_cord(city)
+    if city:
+        # get lat and long using city name and geocoder
+        lat, long = get_cord(city)
+    elif zip_code:
+        # get lat and long using zipcode name and geocoder
+        lat, long = get_cord(zip_code)
+
     if lat and long:
         json_data = get_forecast_hourly(lat, long,2) # use 2 days now to get next 24 hours
 
