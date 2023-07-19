@@ -26,6 +26,13 @@ url = 'https://api.open-meteo.com/v1/forecast'
 def home():
     return render_template('base.html')
 
+
+
+@app.route('/error_404')
+def error():
+    return render_template('error_handle', error="No City or Zip-Code found ")
+
+
 @app.route('/autocomplete_geocode', methods=['GET'])
 def autocomplete():
     #get current user input
