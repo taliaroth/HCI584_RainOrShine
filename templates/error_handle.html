@@ -2,9 +2,54 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Error</title>
+    <style>
+
+        body {
+            font-family: Montserrat, sans-serif;
+            background-color: #EAF2EF;
+            padding: 20px;
+            color: #521945;
+        }
+        h1 {
+            text-align: center;
+            padding: 20px;
+            color: #521945;
+        }
+
+        p {
+            margin-bottom: 10px;
+            color: #521945;
+        }
+
+        a {
+            background-color: #912F56;
+            color: #EAF2EF;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 5px;
+            border: none;
+        }
+
+        .center {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+    </style>
 </head>
 <body>
-
+    <h1>Error</h1>
+    <div class="center">
+        <p>{{ error }}</p>
+    <!-- add route to go home through flask -->
+        <a href="{{ url_for('home') }}">Go back to home</a>
+    </div>
 </body>
 </html>

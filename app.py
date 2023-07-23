@@ -1,7 +1,7 @@
 from datetime import datetime
 
 import requests
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 from opencage.geocoder import OpenCageGeocode
 
 # set flask app variable
@@ -27,10 +27,10 @@ def home():
     return render_template('base.html')
 
 
-
-@app.route('/error_404')
-def error():
-    return render_template('error_handle', error="No City or Zip-Code found ")
+# create a new route for flask app error handling
+@app.route('/error_handle')
+def error_handle():
+    return render_template('error_handle.html', error="No City or Zip-Code found ")
 
 
 @app.route('/autocomplete_geocode', methods=['GET'])
@@ -44,16 +44,19 @@ def autocomplete():
     # add api key
     params = {
         "text": text,
-        "apiKey": api_key_auto
+        "apiKey": api_key_auto,
+        "bias": "countrycode:us" ## add a bias for us to help with auto complete
     }
+
     # create header
     headers = {
         "Accept": "application/json"
     }
     response = requests.get(url, headers=headers, params=params)
-
-    if response.status_code == 200:
-        return response.json()['features']
+    # check if something is coming back from api response
+    if response.status_code == 200 and len(response.json()['features'])>0:
+        f = response.json()['features']
+        return f
 
         #TO DO: add an error message if city not found - error handling
 
@@ -74,6 +77,9 @@ def forecast():
         # get lat and long using zipcode name and geocoder
         lat, long = get_cord(zip_code)
 
+    # if nothing came back then no city or zip code found
+    if lat is None and long is None:
+        return redirect(url_for('error_handle'))
 
     if lat and long: # if both exist keep going
         json_data = get_forecast_daily(lat, long, 10)
@@ -174,6 +180,9 @@ def hourly_forecast():
     elif zip_code:
         # get lat and long using zipcode name and geocoder
         lat, long = get_cord(zip_code)
+    # if no lat and long, no city or zip code found
+    if lat is None and long is None:
+        return redirect(url_for('error_handle'))
 
     if lat and long:
         json_data = get_forecast_hourly(lat, long,2) # use 2 days now to get next 24 hours
