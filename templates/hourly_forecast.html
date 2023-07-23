@@ -47,13 +47,6 @@
             background-color: #f4f4f4;
         }
 
-        .btn-group {
-            display: flex;
-            justify-content: right;
-            align-items: center;
-            flex-direction: row;
-            margin-top: 20px;
-        }
 
         .primary-button {
             background-color: #912F56;
@@ -84,17 +77,40 @@
             border-radius: 5px;
             border: none;
         }
+               /* Add css and html for container to make title and button group same level */
+                .title-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .btn-group {
+            display: flex;
+            align-items: center;
+        }
     </style>
 </head>
+
 <body>
-    <h1>Hourly Weather Forecast for {{ city }}</h1>
+    <div class="title-container">
+        <h1>Hourly Weather Forecast for {{ city }}</h1>
+        <div class="btn-group">
+            <form action="{{ url_for('forecast') }}" method="post">
+                <input type="hidden" name="city" value="{{ city }}">
+                <button class="primary-button" type="submit">Daily Forecast</button >
+            </form>
+            <form action="/" method="get">
+                <button class="secondary-button" type="submit">Home</button >
+            </form>
+        </div>
+    </div>
     <table class="data">
         <thead>
     <tr>
         <th>Time</th>
         <th>Day</th>
         <th>Temperature (F)</th>
-        <th>Precipitation</th>
+        <th>Precipitation (%)</th>
         <th>Weather Image</th>
             </tr>
         </thead>
@@ -115,14 +131,5 @@
         </tbody>
 
     </table>
-    <div class="btn-group">
-        <form action="{{ url_for('forecast') }}" method="post">
-            <input type="hidden" name="city" value="{{ city }}">
-            <button class="primary-button" type="submit">Daily Forecast</button >
-        </form>
-        <form action="/" method="get">
-            <button class="secondary-button" type="submit">Home</button >
-        </form>
-    </div>
 </body>
 </html>

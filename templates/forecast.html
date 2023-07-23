@@ -82,28 +82,38 @@
             border-radius: 5px;
             border: none;
         }
+      /* Add css and html for container to make title and button group same level */
+           .title-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-          /* center buttons and align, create formatting, add margins*/
         .btn-group {
             display: flex;
-            justify-content: right;
             align-items: center;
-            flex-direction: row;
-            margin-top: 20px;
         }
   </style>
 </head>
 <body>
-    <h1>Daily Weather Forecast for {{ city }}</h1>
-    <!-- create table -->
-    <!-- add class to format data-->
-    <table class="data">
+    <div class="title-container">
+        <h1>Daily Weather Forecast for {{ city }}</h1>
+        <div class="btn-group">
+        <form action="{{ url_for('hourly_forecast') }}" method="post">
+            <input type="hidden" name="city" value="{{ city }}">
+            <button class="primary-button" type="submit">See Hourly Forecast</button>
+        </form>
+            <form action="/" method="get">
+                <button class="secondary-button" type="submit">Home</button >
+            </form>
+        </div>
+    </div>    <table class="data">
         <thead>
             <tr>
                 <th>Date</th>
                 <th>Day</th>
                 <th>Temperature (F)</th>
-                <th>Precipitation</th>
+                <th>Precipitation (%)</th>
                 <th></th>
             </tr>
         </thead>
@@ -123,17 +133,5 @@
             {% endfor %}
         </tbody>
     </table>
-    <!-- add class to format buttons -->
-    <div class="btn-group">
-        <!-- create hourly forecast button using forms to redirect to home (flask "/hourly_forecast" route) -->
-        <form action="{{ url_for('hourly_forecast') }}" method="post">
-            <input type="hidden" name="city" value="{{ city }}">
-            <button class="primary-button" type="submit">See Hourly Forecast</button>
-        </form>
-        <!-- create home button using forms to redirect to home (flask "/" route) -->
-        <form action="/" method="get">
-            <button class="secondary-button" type="submit">Home</button>
-        </form>
-    </div>
 </body>
 </html>
