@@ -45,7 +45,8 @@ def autocomplete():
     params = {
         "text": text,
         "apiKey": api_key_auto,
-        "bias": "countrycode:us" ## add a bias for us to help with auto complete
+        "bias": "countrycode:us", ## add a bias for US to help with auto complete
+        "types": "city"  ## cities only now
     }
 
     # create header
@@ -56,7 +57,12 @@ def autocomplete():
     # check if something is coming back from api response
     if response.status_code == 200 and len(response.json()['features'])>0:
         f = response.json()['features']
-        return f
+        cities = []
+        ## get city options and add it to list
+        for feature in f:
+            city = feature['properties']['formatted']
+            cities.append(city)
+        return {'cities': cities}
 
         #TO DO: add an error message if city not found - error handling
 
@@ -90,8 +96,11 @@ def forecast():
 
             # use precipitation to check if it's going to rain and then use image
             #change to 50
-            if json_data['daily']['precipitation_probability_mean'][i] > 50:
+            if json_data['daily']['precipitation_probability_mean'][i] > 80:
                 image = 'rain.png'
+                # add if raining and sunny
+            elif json_data ['daily']['precipitation_probability_mean'][i] < 80 and json_data ['daily']['precipitation_probability_mean'][i] >50:
+                image = 'rain_sun.png'
             else:
                 image = 'sun.png'
 
@@ -201,8 +210,12 @@ def hourly_forecast():
 
             if forecast_time >= current_time:
                 #change to 50
-                if json_data['hourly']['precipitation'][i] > 50:
+                if json_data['hourly']['precipitation'][i] > 80:
                     image = 'rain.png'
+                    # add if raining and sunny
+                elif json_data['hourly']['precipitation'][i] < 80 and \
+                        json_data['hourly']['precipitation'][i] > 50:
+                    image = 'rain_sun.png'
                 else:
                     image = 'sun.png'
 

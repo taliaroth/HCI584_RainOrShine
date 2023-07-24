@@ -59,7 +59,7 @@
 </head>
 
 
-    <script>
+<script>
 $(document).ready(function(){
     var finish = null;
     $('#city').on('input', function() {
@@ -78,23 +78,22 @@ $(document).ready(function(){
 
                     // make sure to clear out the old stuff before updating
                     $('#suggestions').empty();
-
-                    // iterate through suggestions and add them to the html value attribute
-                    data.forEach(function(auto) {
-                        $('#suggestions').append('<option value="' + auto.properties.name + '">');
-                    });
+                        // check data for errors and print error to log to help with debugging this
+                    if(data.error) {
+                       console.error(data.error);
+                    } else {
+                        // iterate through suggestions and add them to the html value attribute
+                        data.cities.forEach(function(city) {
+                            $('#suggestions').append('<option value="' + city + '">');
+                        });
+                    }
                 });
-            }, 150); // make sure it keeps checking quickly
+            }, 10); // make sure it keeps checking quickly
         }
     });
 });
+</script>
 
-//clear input for city and zip_code
-window.onload = function() {
-    document.getElementById('city').value = '';
-    document.getElementById('zip_code').value = '';
-};
-    </script>
 <body>
     <h1>Weather Forecast</h1>
 <form action="/forecast" method="post">

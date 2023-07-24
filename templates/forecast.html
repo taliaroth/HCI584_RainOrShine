@@ -22,7 +22,7 @@
         /* table class, adds margins and width formatting */
         .data {
             border-collapse: collapse;
-            width: 100%;
+            width: 70%;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             margin-top: 50px;
             margin-bottom: 20px;
@@ -85,7 +85,6 @@
       /* Add css and html for container to make title and button group same level */
            .title-container {
             display: flex;
-            justify-content: space-between;
             align-items: center;
         }
 
@@ -96,7 +95,7 @@
   </style>
 </head>
 <body>
-    <div class="title-container">
+
         <h1>Daily Weather Forecast for {{ city }}</h1>
         <div class="btn-group">
         <form action="{{ url_for('hourly_forecast') }}" method="post">
@@ -107,7 +106,7 @@
                 <button class="secondary-button" type="submit">Home</button >
             </form>
         </div>
-    </div>    <table class="data">
+       <table class="data">
         <thead>
             <tr>
                 <th>Date</th>
