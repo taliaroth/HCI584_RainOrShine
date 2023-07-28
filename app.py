@@ -8,7 +8,7 @@ from opencage.geocoder import OpenCageGeocode
 app = Flask(__name__)
 
 # read geocode api key from text file
-with open('api_key.txt', 'r') as file:
+with open('api_geocode.txt', 'r') as file:
     api_key = file.read().strip()
 # read autocomplete api key
 with open('api_auto_complete.txt', 'r') as file:
