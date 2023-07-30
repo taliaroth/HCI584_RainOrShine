@@ -8,5 +8,10 @@ This project is a web-based app that will give weather predictions. Users can us
 The application is pulling from Open-Meteo’s API to gather past weather data. The user can search for their desired city and view the predicted weather for that place. This application will allow users to view weather predictions hourly or daily. The user will be able to see predictions for temperature and precipitation.
 
 * Download the newest version of [Python 3](https://www.python.org/downloads/ "Python 3").
-* Next, make sure you have Pip installed using this [guide ](https://pip.pypa.io/en/stable/installation/ "guide ").
-* In your terminal, use the requirements.txt file by entering the command - pip install -r requirements.txt 
+* Next, make sure you have Pip installed using this [guide ](https://pip.pypa.io/en/stable/installation/ "guide").
+* In your terminal, use the requirements.txt file by entering the command - pip install -r requirements.txt
+* Create an API key for the geocoding by going to OpenCage’s [website](https://opencagedata.com/ "website") and signing up.
+* Create an API key for autocomplete by going to Geoapify [website](https://www.geoapify.com/ "website") and signing up.
+* Once you have both API keys, place the OpenCage key in api_geocode.txt, then place the Geoapify in api_auto_complete.txt.
+* Once this is
+
