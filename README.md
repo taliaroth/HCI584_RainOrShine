@@ -18,3 +18,6 @@ The application is pulling from Open-Meteo’s API to gather past weather data. 
 * Now use this command to start the app -  flask run
 * You should see a hyperlink, click this, and it will take you to your app
 
+![User flow](https://github.com/taliaroth/RainOrShine_HCI584/blob/main/output.gif)
+
+
